@@ -1,4 +1,3 @@
-// src/main/java/com/example/bank/config/SecurityConfig.java
 package com.example.bank.config;
 
 import org.springframework.context.annotation.Bean;

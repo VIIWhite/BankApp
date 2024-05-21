@@ -1,4 +1,3 @@
-// src/main/java/com/example/bank/service/UserService.java
 package com.example.bank.service;
 
 import com.example.bank.entity.User;

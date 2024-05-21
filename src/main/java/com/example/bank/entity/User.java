@@ -1,4 +1,3 @@
-// src/main/java/com/example/bank/entity/User.java
 package com.example.bank.entity;
 
 import javax.persistence.*;

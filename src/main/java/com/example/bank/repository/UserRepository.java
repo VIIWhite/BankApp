@@ -1,4 +1,3 @@
-// src/main/java/com/example/bank/repository/UserRepository.java
 package com.example.bank.repository;
 
 import com.example.bank.entity.User;
