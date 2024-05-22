@@ -14,19 +14,20 @@ function Login() {
         const user = { username, password };
 
         try {
-            // Assuming axios.post(`http://localhost:8080/api/login`, user) is your login API call
+
             const response = await axios.post('http://localhost:8080/api/login', user, {
                 headers: {
                     'Content-Type': 'application/json'
                 }
             });
-            // If login is successful, set the local storage and update login status
+
             localStorage.setItem('username', username);
             login();
-            // Redirect to the account page upon successful login
+
             navigate('/account'); // This line redirects the user
         } catch (error) {
-            // Handle your login errors appropriately here
+            console.error('Error', error.message);
+            alert('Error: ' + error.message);
         }
     }
 
