@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.math.BigDecimal;
 @Service
@@ -14,16 +15,6 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    public User registerUser(User user) {
-        if (userRepository.existsByEmail(user.getEmail())) {
-            throw new DataIntegrityViolationException("Email already exists");
-        }
-        if (userRepository.existsByPhoneNumber(user.getPhoneNumber())) {
-            throw new DataIntegrityViolationException("Phone number already exists");
-        }
-        user.setBalance(user.getInitialBalance()); // set initial balance
-        return userRepository.save(user);
-    }
 
     @Transactional
     public User deposit(String username, BigDecimal amount) {
@@ -53,5 +44,15 @@ public class UserService {
 
         user.setBalance(user.getBalance().subtract(amount));
         return userRepository.save(user);
+    }
+
+    @Transactional
+    public BigDecimal getBalance(String username){
+        System.out.println("Received request for balance of user: " + username);
+
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        return user.getBalance();
     }
 }
