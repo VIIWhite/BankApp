@@ -39,8 +39,17 @@ function Balance() {
         }
     };
 
+    // return (
+    //     <div>
+    //         <h2>Balance</h2>
+    //         <button onClick={checkBalance}>Check Balance</button>
+    //         {error && <p>{error}</p>}
+    //         {balance !== null && <p>Your balance: {balance}</p>}
+    //     </div>
+    // );
+
     return (
-        <div>
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '30vh' }}>
             <h2>Balance</h2>
             <button onClick={checkBalance}>Check Balance</button>
             {error && <p>{error}</p>}
