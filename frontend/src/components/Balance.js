@@ -1,4 +1,3 @@
-// frontend/src/components/Balance.js
 import React, { useContext, useState } from 'react';
 import axios from 'axios';
 import { AuthContext } from './AuthContext';
@@ -17,7 +16,7 @@ function Balance() {
             return;
         }
 
-        // get username from local
+        // 从本地存储中获取用户名
         const storedUsername = localStorage.getItem('username');
         if (!storedUsername) {
             alert('Username is not available');
@@ -31,13 +30,10 @@ function Balance() {
             setError('');
         } catch (error) {
             if (error.response) {
-                console.error('Error response:', error.response.data);
                 setError('Failed to fetch balance');
             } else if (error.request) {
-                console.error('Error request:', error.request);
                 setError('No response received from server.');
             } else {
-                console.error('Error', error.message);
                 setError('Error: ' + error.message);
             }
         }

@@ -1,4 +1,3 @@
-// frontend/src/components/Login.js
 import React, { useState, useContext } from 'react';
 import axios from 'axios';
 import { AuthContext } from './AuthContext';

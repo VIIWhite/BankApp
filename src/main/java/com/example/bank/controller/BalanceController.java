@@ -1,4 +1,3 @@
-// src/main/java/com/example/bank/controller/BalanceController.java
 package com.example.bank.controller;
 
 import com.example.bank.entity.User;
