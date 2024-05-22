@@ -4,9 +4,7 @@ import com.example.bank.entity.User;
 import com.example.bank.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.math.BigDecimal;
 @Service
@@ -31,6 +29,7 @@ public class UserService {
 
     @Transactional
     public User withdraw(String username, BigDecimal amount) {
+        System.out.println("Withdrawal attempt: " + username + " amount: " + amount);
         User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
