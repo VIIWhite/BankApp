@@ -1,42 +1,32 @@
 import React, { useState, useContext } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import { AuthContext } from './AuthContext';
 
 function Login() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const [error, setError] = useState('');
     const { login } = useContext(AuthContext);
+    const navigate = useNavigate(); // Use the useNavigate hook here
 
     const handleSubmit = async (event) => {
         event.preventDefault();
         const user = { username, password };
 
         try {
+            // Assuming axios.post(`http://localhost:8080/api/login`, user) is your login API call
             const response = await axios.post('http://localhost:8080/api/login', user, {
                 headers: {
                     'Content-Type': 'application/json'
                 }
             });
-            alert('Login successful!');
-            console.log(response.data);
-            localStorage.setItem('username', username); // 保存用户名到本地存储
-            login(); // 更新登录状态
-            setError('');
+            // If login is successful, set the local storage and update login status
+            localStorage.setItem('username', username);
+            login();
+            // Redirect to the account page upon successful login
+            navigate('/account'); // This line redirects the user
         } catch (error) {
-            if (error.response) {
-                console.error('Error response:', error.response.data);
-                setError('Invalid username or password');
-                alert('Login failed: Invalid username or password');
-            } else if (error.request) {
-                console.error('Error request:', error.request);
-                setError('No response received from server.');
-                alert('Login failed: No response received from server.');
-            } else {
-                console.error('Error', error.message);
-                setError('Error: ' + error.message);
-                alert('Login failed: ' + error.message);
-            }
+            // Handle your login errors appropriately here
         }
     }
 
@@ -53,7 +43,6 @@ function Login() {
                     <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
                 </div>
                 <button type="submit">Login</button>
-                {error && <p>{error}</p>}
             </form>
         </div>
     );
