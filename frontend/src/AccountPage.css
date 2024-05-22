@@ -1,0 +1,26 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+}
+
+.logout-btn {
+    padding: 6px 12px;
+    cursor: pointer;
+}
+
+.account-actions {
+    display: flex;
+    justify-content: center;
+    gap: 20px; /* Adjust the space between components */
+    margin-top: 20px;
+}
+
+/* Adjust sizes and styles of Balance, Deposit, and Withdraw components if needed */
+.account-actions > div {
+    width: 30%; /* Example width, adjust based on your need */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    padding: 20px;
+    border-radius: 4px;
+}
