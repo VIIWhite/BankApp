@@ -19,7 +19,7 @@ public class UserService {
         if (userRepository.existsByPhoneNumber(user.getPhoneNumber())) {
             throw new DataIntegrityViolationException("Phone number already exists");
         }
-        user.setBalance(user.getInitialBalance()); // 设置用户初始余额为 initialBalance
+        user.setBalance(user.getInitialBalance()); // set initial balance
         return userRepository.save(user);
     }
 }
