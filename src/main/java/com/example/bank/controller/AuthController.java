@@ -1,6 +1,9 @@
 package com.example.bank.controller;
 
+import com.example.bank.entity.LoginRequest;
 import com.example.bank.entity.User;
+import com.example.bank.repository.UserRepository;
+import com.example.bank.service.AuthService;
 import com.example.bank.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -14,22 +17,37 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api")
 @CrossOrigin(origins = "http://localhost:3000")
-public class RegisterController {
+
+public class AuthController {
 
     @Autowired
-    private UserService userService;
+    private AuthService AuthService;
 
     @PostMapping("/register")
     public ResponseEntity<?> registerUser(@Valid @RequestBody User user) {
         try {
-            User registeredUser = userService.registerUser(user);
+            User registeredUser = AuthService.registerUser(user);
             return ResponseEntity.ok(registeredUser);
         } catch (DataIntegrityViolationException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
+    }
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @PostMapping("/login")
+    public ResponseEntity<?> loginUser(@Valid @RequestBody LoginRequest loginRequest) {
+        try{
+            User loginUser = AuthService.loginUser(loginRequest);
+            return ResponseEntity.ok(loginUser);
+        }catch (RuntimeException e){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
     }
 
