@@ -15,18 +15,13 @@ import java.math.BigDecimal;
 @CrossOrigin(origins = "http://localhost:3000")
 public class BalanceController {
 
-    @Autowired
-    private UserRepository userRepository;
 
     @Autowired
     private UserService userService;
 
     @GetMapping("/balance")
     public BigDecimal getBalance(@RequestParam String username) {
-        System.out.println("Received request for balance of user: " + username);
-        User user = userRepository.findByUsername(username)
-                .orElseThrow(() -> new RuntimeException("User not found"));
-        return user.getBalance();
+        return userService.getBalance(username);
     }
 
     @PostMapping("/deposit")
