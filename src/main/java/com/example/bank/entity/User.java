@@ -13,6 +13,7 @@ public class User {
 
     @Pattern(regexp = "[_\\-\\.0-9a-z]{1,127}", message = "Username must contain only underscores, hyphens, dots, digits, and lowercase letters, and be between 1 and 127 characters long.")
     @NotNull
+    @Column(unique = true)
     private String username;
 
     @NotNull
@@ -39,6 +40,8 @@ public class User {
     private String age;
 
     private String gender;
+
+    private BigDecimal balance;
 
     // Getters and setters
     public Long getId() {
@@ -111,5 +114,13 @@ public class User {
 
     public void setGender(String gender) {
         this.gender = gender;
+    }
+
+    public BigDecimal getBalance() {
+        return balance;
+    }
+
+    public void setBalance(BigDecimal balance) {
+        this.balance = balance;
     }
 }
