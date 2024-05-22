@@ -14,20 +14,25 @@ function Login() {
         const user = { username, password };
 
         try {
-
             const response = await axios.post('http://localhost:8080/api/login', user, {
                 headers: {
                     'Content-Type': 'application/json'
                 }
             });
-
             localStorage.setItem('username', username);
             login();
 
             navigate('/account'); // This line redirects the user
         } catch (error) {
-            console.error('Error', error.message);
-            alert('Error: ' + error.message);
+            if (error.response) {
+                if (error.response.status === 404) {
+                    // Unauthorized - Invalid credentials
+                    alert("Invalid username or password. Please try again.");
+                } else {
+                    // Other server-side errors
+                    alert(`Login failed. Server responded with status code ${error.response.status}.`);
+                }
+            }
         }
     }
 
