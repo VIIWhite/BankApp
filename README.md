@@ -1,23 +1,23 @@
 # Bank Application
 
-## 前端设置
+## Frontend Setup
 
-1. 导航到 `frontend` 目录：
+1. Navigate to the `frontend` directory:
     ```sh
     cd frontend
     ```
-2. 安装依赖项：
+2. Install dependencies:
     ```sh
     npm install
     ```
-3. 启动前端项目：
+3. Start the frontend project:
     ```sh
     npm start
     ```
 
-## 后端设置
+## Backend Setup
 
-1. 创建 MySQL 数据库：
+1. Create a MySQL database:
     ```sql
     CREATE DATABASE bankdb;
     CREATE USER 'bankuser'@'localhost' IDENTIFIED BY 'password';
@@ -25,9 +25,9 @@
     FLUSH PRIVILEGES;
     ```
 
-2. 配置数据库连接信息：
+2. Configure database connection information:
 
-   在 `src/main/resources/application.properties` 文件中：
+   In the `src/main/resources/application.properties` file:
     ```properties
     spring.datasource.url=jdbc:mysql://localhost:3306/bankdb
     spring.datasource.username=bankuser
@@ -38,14 +38,14 @@
     spring.jpa.show-sql=true
     ```
 
-3. 构建和运行后端项目：
+3. Build and run the backend project:
     ```sh
     ./gradlew build
     ./gradlew bootRun
     ```
 
-## 测试项目
+## Test the Project
 
-运行项目测试：
+Run the project tests:
 ```sh
 ./gradlew test

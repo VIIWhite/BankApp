@@ -16,7 +16,7 @@ function Balance() {
             return;
         }
 
-        // 从本地存储中获取用户名
+        // get username from local storage
         const storedUsername = localStorage.getItem('username');
         if (!storedUsername) {
             alert('Username is not available');

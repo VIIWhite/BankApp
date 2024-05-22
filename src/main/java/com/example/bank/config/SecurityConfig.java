@@ -19,9 +19,9 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf().disable()
-                .cors().and()  // 启用 CORS
+                .cors().and()  // enable cors
                 .authorizeRequests()
-                .antMatchers("/api/register", "/api/login", "/api/balance").permitAll()
+                .antMatchers("/api/register", "/api/login", "/api/balance", "/api/deposit", "/api/withdraw").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
