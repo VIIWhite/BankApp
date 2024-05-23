@@ -122,11 +122,11 @@ function Register() {
                     <input type="text" value={age} onChange={(e) => setAge(e.target.value)} />
                     {errors.age && <p className="error">{errors.age}</p>}
                 </div>
-                <div>
-                    <label>Gender: </label>
-                    <input type="text" value={gender} onChange={(e) => setGender(e.target.value)} />
-                    {errors.gender && <p className="error">{errors.gender}</p>}
-                </div>
+                {/*<div>*/}
+                {/*    <label>Gender: </label>*/}
+                {/*    <input type="text" value={gender} onChange={(e) => setGender(e.target.value)} />*/}
+                {/*    {errors.gender && <p className="error">{errors.gender}</p>}*/}
+                {/*</div>*/}
                 <button type="submit">Register</button>
             </form>
             {errors.server && <p className="error">{errors.server}</p>}

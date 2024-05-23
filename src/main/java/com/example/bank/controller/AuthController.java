@@ -1,10 +1,9 @@
 package com.example.bank.controller;
 
-import com.example.bank.entity.LoginRequest;
+import com.example.bank.repository.LoginRequest;
 import com.example.bank.entity.User;
 import com.example.bank.repository.UserRepository;
 import com.example.bank.service.AuthService;
-import com.example.bank.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api")

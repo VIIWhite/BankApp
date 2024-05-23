@@ -1,12 +1,13 @@
 import React, { useContext, useState } from 'react';
 import axios from 'axios';
 import { AuthContext } from './AuthContext';
+import { BalanceContext } from './BalanceContext';
 import { useNavigate } from 'react-router-dom';
 
 function Balance() {
     const { isAuthenticated } = useContext(AuthContext);
+    const { balance, setBalance, operation, setOperation } = useContext(BalanceContext);
     const navigate = useNavigate();
-    const [balance, setBalance] = useState(null);
     const [error, setError] = useState('');
 
     const checkBalance = async () => {
@@ -16,7 +17,9 @@ function Balance() {
             return;
         }
 
-        // get username from local storage
+        setOperation('checkBalance');
+        setError('');
+
         const storedUsername = localStorage.getItem('username');
         if (!storedUsername) {
             alert('Username is not available');
@@ -27,7 +30,6 @@ function Balance() {
         try {
             const response = await axios.get(`http://localhost:8080/api/balance?username=${storedUsername}`);
             setBalance(response.data);
-            setError('');
         } catch (error) {
             if (error.response) {
                 setError('Failed to fetch balance');
@@ -39,21 +41,12 @@ function Balance() {
         }
     };
 
-    // return (
-    //     <div>
-    //         <h2>Balance</h2>
-    //         <button onClick={checkBalance}>Check Balance</button>
-    //         {error && <p>{error}</p>}
-    //         {balance !== null && <p>Your balance: {balance}</p>}
-    //     </div>
-    // );
-
     return (
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '30vh' }}>
             <h2>Balance</h2>
             <button onClick={checkBalance}>Check Balance</button>
-            {error && <p>{error}</p>}
-            {balance !== null && <p>Your balance: {balance}</p>}
+            {error && <p style={{ color: 'red' }}>{error}</p>}
+            {operation === 'checkBalance' && balance !== null && <p>Your balance: {balance}</p>}
         </div>
     );
 }

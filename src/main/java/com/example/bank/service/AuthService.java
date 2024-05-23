@@ -1,6 +1,6 @@
 package com.example.bank.service;
 
-import com.example.bank.entity.LoginRequest;
+import com.example.bank.repository.LoginRequest;
 import com.example.bank.entity.User;
 import com.example.bank.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,15 +1,16 @@
 import React, { useContext, useState } from 'react';
 import axios from 'axios';
 import { AuthContext } from './AuthContext';
+import { BalanceContext } from './BalanceContext';
 import { useNavigate } from 'react-router-dom';
 
 function Deposit() {
     const { isAuthenticated } = useContext(AuthContext);
+    const { balance, setBalance, operation, setOperation } = useContext(BalanceContext);
     const navigate = useNavigate();
     const [amount, setAmount] = useState('');
     const [message, setMessage] = useState('');
     const [error, setError] = useState('');
-    const [balance, setBalance] = useState(null);
 
     const handleDeposit = async () => {
         if (!isAuthenticated) {
@@ -18,7 +19,10 @@ function Deposit() {
             return;
         }
 
-        // Get username from local storage
+        setOperation('deposit');
+        setMessage('');
+        setError('');
+
         const storedUsername = localStorage.getItem('username');
         if (!storedUsername) {
             alert('Username is not available');
@@ -26,21 +30,16 @@ function Deposit() {
             return;
         }
 
-        // Validate the deposit amount
         const depositAmount = parseFloat(amount);
         const amountRegex = /^\d+(\.\d{1,2})?$/;
 
         if (!amountRegex.test(amount)) {
-            setError('Please enter a valid amount with up to two decimal');
-            setMessage('');
-            setBalance(null);
+            setError('Please enter a valid amount with up to two decimal places');
             return;
         }
 
         if (isNaN(depositAmount) || depositAmount <= 0) {
             setError('Please enter a valid amount greater than 0');
-            setMessage('');
-            setBalance(null);
             return;
         }
 
@@ -49,9 +48,8 @@ function Deposit() {
                 username: storedUsername,
                 amount: depositAmount
             });
-            setMessage(`Deposit successful!`);
+            setMessage('Deposit successful!');
             setBalance(response.data.balance);
-            setError('');
         } catch (error) {
             if (error.response) {
                 setError('Failed to make deposit');
@@ -60,8 +58,6 @@ function Deposit() {
             } else {
                 setError('Error: ' + error.message);
             }
-            setMessage('');
-            setBalance(null);
         }
     };
 
@@ -79,8 +75,8 @@ function Deposit() {
                 <button onClick={handleDeposit} style={{ marginLeft: '10px' }}>Deposit</button>
             </div>
             {error && <p style={{ color: 'red' }}>{error}</p>}
-            {message && <p>{message}</p>}
-            {balance !== null && <p>Your balance: {balance}</p>}
+            {operation === 'deposit' && message && <p>{message}</p>}
+            {operation === 'deposit' && balance !== null && <p>Your balance: {balance}</p>}
         </div>
     );
 }

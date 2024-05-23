@@ -1,4 +1,4 @@
-package com.example.bank.entity;
+package com.example.bank.repository;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;

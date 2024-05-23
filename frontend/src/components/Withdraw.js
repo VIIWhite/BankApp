@@ -1,15 +1,16 @@
 import React, { useContext, useState } from 'react';
 import axios from 'axios';
 import { AuthContext } from './AuthContext';
+import { BalanceContext } from './BalanceContext';
 import { useNavigate } from 'react-router-dom';
 
 function Withdraw() {
     const { isAuthenticated } = useContext(AuthContext);
+    const { balance, setBalance, operation, setOperation } = useContext(BalanceContext);
     const navigate = useNavigate();
     const [amount, setAmount] = useState('');
     const [message, setMessage] = useState('');
     const [error, setError] = useState('');
-    const [balance, setBalance] = useState(null);
 
     const handleWithdraw = async () => {
         if (!isAuthenticated) {
@@ -18,7 +19,10 @@ function Withdraw() {
             return;
         }
 
-        // Get username from local storage
+        setOperation('withdraw');
+        setMessage('');
+        setError('');
+
         const storedUsername = localStorage.getItem('username');
         if (!storedUsername) {
             alert('Username is not available');
@@ -26,21 +30,16 @@ function Withdraw() {
             return;
         }
 
-        // Validate the withdrawal amount
         const withdrawAmount = parseFloat(amount);
         const amountRegex = /^\d+(\.\d{1,2})?$/;
 
         if (!amountRegex.test(amount)) {
             setError('Please enter a valid amount with up to two decimal places');
-            setMessage('');
-            setBalance(null);
             return;
         }
 
         if (isNaN(withdrawAmount) || withdrawAmount <= 0) {
             setError('Please enter a valid amount greater than 0');
-            setMessage('');
-            setBalance(null);
             return;
         }
 
@@ -49,9 +48,8 @@ function Withdraw() {
                 username: storedUsername,
                 amount: withdrawAmount
             });
-            setMessage(`Withdrawal successful!`);
+            setMessage('Withdrawal successful!');
             setBalance(response.data.balance);
-            setError('');
         } catch (error) {
             if (error.response && error.response.data === 'Insufficient balance') {
                 setError('Withdrawal failed: Insufficient balance');
@@ -62,8 +60,6 @@ function Withdraw() {
             } else {
                 setError('Error: ' + error.message);
             }
-            setMessage('');
-            setBalance(null);
         }
     };
 
@@ -81,8 +77,8 @@ function Withdraw() {
                 <button onClick={handleWithdraw} style={{ marginLeft: '10px' }}>Withdraw</button>
             </div>
             {error && <p style={{ color: 'red' }}>{error}</p>}
-            {message && <p>{message}</p>}
-            {balance !== null && <p>Your balance: {balance}</p>}
+            {operation === 'withdraw' && message && <p>{message}</p>}
+            {operation === 'withdraw' && balance !== null && <p>Your balance: {balance}</p>}
         </div>
     );
 }
