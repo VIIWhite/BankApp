@@ -28,6 +28,15 @@ function Deposit() {
 
         // Validate the deposit amount
         const depositAmount = parseFloat(amount);
+        const amountRegex = /^\d+(\.\d{1,2})?$/;
+
+        if (!amountRegex.test(amount)) {
+            setError('Please enter a valid amount with up to two decimal');
+            setMessage('');
+            setBalance(null);
+            return;
+        }
+
         if (isNaN(depositAmount) || depositAmount <= 0) {
             setError('Please enter a valid amount greater than 0');
             setMessage('');
@@ -40,7 +49,7 @@ function Deposit() {
                 username: storedUsername,
                 amount: depositAmount
             });
-            setMessage(`Deposit successful !`);
+            setMessage(`Deposit successful!`);
             setBalance(response.data.balance);
             setError('');
         } catch (error) {
@@ -56,7 +65,6 @@ function Deposit() {
         }
     };
 
-
     return (
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '30vh' }}>
             <h2>Deposit</h2>
@@ -66,6 +74,7 @@ function Deposit() {
                     value={amount}
                     onChange={(e) => setAmount(e.target.value)}
                     placeholder="Enter amount"
+                    step="0.01"
                 />
                 <button onClick={handleDeposit} style={{ marginLeft: '10px' }}>Deposit</button>
             </div>

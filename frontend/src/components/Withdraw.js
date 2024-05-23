@@ -28,6 +28,15 @@ function Withdraw() {
 
         // Validate the withdrawal amount
         const withdrawAmount = parseFloat(amount);
+        const amountRegex = /^\d+(\.\d{1,2})?$/;
+
+        if (!amountRegex.test(amount)) {
+            setError('Please enter a valid amount with up to two decimal places');
+            setMessage('');
+            setBalance(null);
+            return;
+        }
+
         if (isNaN(withdrawAmount) || withdrawAmount <= 0) {
             setError('Please enter a valid amount greater than 0');
             setMessage('');
@@ -40,7 +49,7 @@ function Withdraw() {
                 username: storedUsername,
                 amount: withdrawAmount
             });
-            setMessage(`Withdrawal successful !`);
+            setMessage(`Withdrawal successful!`);
             setBalance(response.data.balance);
             setError('');
         } catch (error) {
@@ -67,6 +76,7 @@ function Withdraw() {
                     value={amount}
                     onChange={(e) => setAmount(e.target.value)}
                     placeholder="Enter amount"
+                    step="0.01"
                 />
                 <button onClick={handleWithdraw} style={{ marginLeft: '10px' }}>Withdraw</button>
             </div>
