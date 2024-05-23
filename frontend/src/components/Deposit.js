@@ -71,7 +71,7 @@ function Deposit() {
             </div>
             {error && <p style={{ color: 'red' }}>{error}</p>}
             {message && <p>{message}</p>}
-            {balance !== null && <p>Your balance: {balance}</p>}
+            {/*{balance !== null && <p>Your balance: {balance}</p>}*/}
         </div>
     );
 }
