@@ -21,7 +21,7 @@ public class SecurityConfig {
                 .csrf().disable()
                 .cors().and()  // enable cors
                 .authorizeRequests()
-                .antMatchers("/api/register", "/api/login", "/api/balance", "/api/deposit", "/api/withdraw").permitAll()
+                .antMatchers("/api/register", "/api/login", "/api/balance", "/api/deposit", "/api/withdraw", "/api/user/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()

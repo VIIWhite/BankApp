@@ -1,0 +1,25 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logout-btn {
+    padding: 10px 20px;
+    background-color: #f44336;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.welcome-message {
+    margin: 20px 0;
+    font-size: 1.5em;
+    color: #19d5e7;
+    padding-left: 20px;
+}
+
+.account-actions {
+    display: flex;
+    justify-content: space-around;
+}
