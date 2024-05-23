@@ -7,34 +7,33 @@ function Login() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const { login } = useContext(AuthContext);
-    const navigate = useNavigate(); // Use the useNavigate hook here
+    const navigate = useNavigate();
 
     const handleSubmit = async (event) => {
         event.preventDefault();
         const user = { username, password };
 
         try {
+            // Simulate an API call
             const response = await axios.post('http://localhost:8080/api/login', user, {
                 headers: {
                     'Content-Type': 'application/json'
                 }
             });
             localStorage.setItem('username', username);
-            login();
+            login(username); // Pass the username to the login function
 
-            navigate('/account'); // This line redirects the user
+            navigate(`/account/${username}`); // Redirect to account page with username
         } catch (error) {
             if (error.response) {
                 if (error.response.status === 404) {
-                    // Unauthorized - Invalid credentials
                     alert("Invalid username or password. Please try again.");
                 } else {
-                    // Other server-side errors
                     alert(`Login failed. Server responded with status code ${error.response.status}.`);
                 }
             }
         }
-    }
+    };
 
     return (
         <div>

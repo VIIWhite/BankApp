@@ -4,10 +4,10 @@ import { AuthContext } from './AuthContext';
 import Balance from './Balance';
 import Deposit from './Deposit';
 import Withdraw from './Withdraw';
-import '../AccountPage.css'; // Import CSS for styling
+import './AccountPage.css'; // Import CSS for styling
 
 function AccountPage() {
-    const { logout } = useContext(AuthContext);
+    const { user, logout } = useContext(AuthContext);
     const navigate = useNavigate();
 
     const handleLogout = () => {
@@ -17,9 +17,8 @@ function AccountPage() {
 
     return (
         <div>
-            <div className="header">
-                <h2>Account Management</h2>
-                <button className="logout-btn" onClick={handleLogout}>Logout</button>
+            <div className="welcome-message">
+                <h3>Welcome, {user} !</h3>
             </div>
             <div className="account-actions">
                 <Balance />
