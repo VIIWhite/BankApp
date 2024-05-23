@@ -18,7 +18,7 @@ public class AuthService {
 
     @Transactional
     public User registerUser(User user) {
-        if (userRepository.findByUsername(user.getUsername()) != null) {
+        if (userRepository.findByUsername(user.getUsername()).isPresent()) {
             throw new DataIntegrityViolationException("Username already exists");
         }
         if (userRepository.existsByEmail(user.getEmail())) {
