@@ -29,7 +29,6 @@ public class UserService {
 
     @Transactional
     public User withdraw(String username, BigDecimal amount) {
-        System.out.println("Withdrawal attempt: " + username + " amount: " + amount);
         User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
@@ -47,7 +46,6 @@ public class UserService {
 
     @Transactional
     public BigDecimal getBalance(String username){
-        System.out.println("Received request for balance of user: " + username);
 
         User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new RuntimeException("User not found"));
