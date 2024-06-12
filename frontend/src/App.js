@@ -10,6 +10,7 @@ import Withdraw from './components/Withdraw';
 import { AuthProvider } from './components/AuthContext';
 import { BalanceProvider } from './components/BalanceContext';
 import ProtectedRoute from './components/ProtectedRoute';
+import AdminRoute from './components/AdminRoute';
 import './App.css';
 
 function App() {
@@ -19,6 +20,10 @@ function App() {
         // check current protocol
         const currentProtocol = window.location.protocol;
         setProtocol(currentProtocol);
+
+        // if (currentProtocol === 'http:') {
+        //     window.location.href = window.location.href.replace('http:', 'https:');
+        // }
     }, []);
 
     return (
@@ -40,7 +45,11 @@ function App() {
                             <Route path="/register" element={<Register />} />
                             <Route path="/login" element={<Login />} />
                             <Route path="/account/:username" element={<AccountPage />} />
-                            <Route path="/admin" element={<AdminPage />} />
+                            <Route path="/admin" element={
+                                <AdminRoute>
+                                    <AdminPage />
+                                </AdminRoute>
+                            } />
                             <Route path="/balance" element={
                                 <ProtectedRoute>
                                     <Balance />
